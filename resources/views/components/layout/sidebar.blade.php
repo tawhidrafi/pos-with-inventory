@@ -9,6 +9,7 @@
         <a href="{{ route('dashboard') }}" class="block py-2 px-4 hover:bg-gray-700 rounded">Dashboard</a>
 
         <!-- USER & ROLES Dropdown -->
+        @if(auth()->user()->hasRole('admin'))
         <div>
             <button class="flex justify-between w-full py-2 px-4 text-left hover:bg-gray-700 rounded" id="users-dropdown" aria-expanded="false">
                 User Management
@@ -30,6 +31,7 @@
                 <a href="{{ route('suppliers.index') }}" class="block py-2 px-4 hover:bg-gray-700 rounded">Suppliers</a>
             </div>
         </div>
+        @endif
 
         <!-- Product Dropdown -->
         <div>
@@ -48,6 +50,7 @@
         </div>
 
         <!-- PURCHASE Dropdown -->
+        @if(auth()->user()->hasAnyRole(['admin', 'purchase-manager']))
         <div>
             <button class="flex justify-between w-full py-2 px-4 text-left hover:bg-gray-700 rounded" id="purchase-dropdown" aria-expanded="false">
                 Purchases
@@ -58,8 +61,10 @@
                 <a href="{{ route('purchase-returns.index') }}" class="block py-2 px-4 hover:bg-gray-700 rounded">Purchase Returns</a>
             </div>
         </div>
+        @endif
 
         <!-- SALE Dropdown -->
+        @if(auth()->user()->hasAnyRole(['admin', 'sales-manager']))
         <div>
             <button class="flex justify-between w-full py-2 px-4 text-left hover:bg-gray-700 rounded" id="sale-dropdown" aria-expanded="false">
                 Sales
@@ -70,8 +75,10 @@
                 <a href="{{ route('sale-returns.index') }}" class="block py-2 px-4 hover:bg-gray-700 rounded">Sale Returns</a>
             </div>
         </div>
+        @endif
 
         <!-- Accounting Dropdown -->
+        @if(auth()->user()->hasRole('admin'))
         <div>
             <button class="flex justify-between w-full py-2 px-4 text-left hover:bg-gray-700 rounded" id="accounting-dropdown" aria-expanded="false">
                 Accounting
@@ -84,9 +91,7 @@
                 <a href="{{ route('expense-categories.index') }}" class="block py-2 px-4 hover:bg-gray-700 rounded">Expense Categories</a>
                 <a href="{{ route('payment-methods.index') }}" class="block py-2 px-4 hover:bg-gray-700 rounded">Payment Methods</a>
             </div>
-
-            <a href="#" class="block py-2 px-4 hover:bg-gray-700 rounded">Settings</a>
-            <a href="#" class="block py-2 px-4 hover:bg-gray-700 rounded">Reports</a>
         </div>
+        @endif
     </nav>
 </div>

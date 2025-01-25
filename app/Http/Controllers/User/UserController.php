@@ -3,6 +3,12 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product\Product;
+use App\Models\Product\Variant;
+use App\Models\Purchase\Purchase;
+use App\Models\Purchase\PurchaseReturn;
+use App\Models\Sale\Sale;
+use App\Models\Sale\SaleReturn;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,8 +20,26 @@ class UserController extends Controller
     // index page
     public function index()
     {
-        return view('user.profile');
+        $totalSales = Sale::sum('total');
+        $totalPurchases = Purchase::sum('total');
+        $totalSaleReturns = SaleReturn::sum('total');
+        $totalPurchaseReturns = PurchaseReturn::sum('total');
+        $totalProducts = Product::count();
+        $totalVariants = Variant::count();
+        $totalprod = $totalProducts + $totalVariants;
+
+        // Daily stats
+        $salesToday = Sale::whereDate('created_at', today())->sum('total');
+        $purchasesToday = Purchase::whereDate('created_at', today())->sum('total');
+
+        return view('user.dashboard', compact('totalSales', 'totalPurchases', 'totalSaleReturns', 'totalPurchaseReturns', 'totalprod', 'salesToday', 'purchasesToday'));
     }
+    public function profile()
+    {
+        $user = Auth::user();
+        return view('user.profile', compact('user'));
+    }
+
     // update profile details
     public function update(Request $request, User $user)
     {

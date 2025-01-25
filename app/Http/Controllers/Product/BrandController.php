@@ -12,11 +12,8 @@ class BrandController extends Controller
     // index, create, edit page
     public function index()
     {
-        if (Gate::allows('manage-brands')) {
-            $brands = Brand::all();
-            return view('products.brands.index', compact('brands'));
-        }
-        abort(403, 'Unauthorized action.');
+        $brands = Brand::all();
+        return view('products.brands.index', compact('brands'));
     }
     // create new brand
     public function store(Request $request)

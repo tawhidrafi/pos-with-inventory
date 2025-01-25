@@ -29,8 +29,8 @@ class DepositController extends Controller
     public function create()
     {
         // collect data
-        $accounts = Account::getAllAccount();
-        $paymentMethods = PaymentMethod::getAllPaymentMethod();
+        $accounts = Account::all();
+        $paymentMethods = PaymentMethod::all();
         // redirect
         return view('accounting.deposits.create', compact('accounts', 'paymentMethods'));
     }

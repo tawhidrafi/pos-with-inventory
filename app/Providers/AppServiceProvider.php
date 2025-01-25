@@ -15,7 +15,6 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        // Dynamically defining gates for each permission
         $permissions = Permission::all();
 
         foreach ($permissions as $permission) {

@@ -40,7 +40,7 @@ Route::middleware('auth')->group(function () {
     // User Routes (Authenticated)
     Route::controller(UserController::class)->group(function () {
         Route::get('/', 'index')->name('dashboard');
-        Route::get('/profile', 'index')->name('profile');
+        Route::get('/profile', 'profile')->name('profile');
         Route::put('/profile/edit/{user}', 'update')->name('profile.update');
         Route::put('/profile/update-password/{user}', 'updatePassword')->name('profile.updatePassword');
         Route::put('/profile/update-picture/{user}', 'updateProfilePicture')->name('profile.updatePicture');
@@ -85,7 +85,7 @@ Route::middleware('auth')->group(function () {
         Route::post('sales/update-status/{id}', [SaleController::class, 'updateDeliveryStatus'])->name('sales.updateStatus');
         // Sale Return Routes (CRUD Operations)
         Route::controller(SaleReturnController::class)->group(function () {
-            Route::get('/sale-returns/create/{id}', 'create')->name('sale-returns.create');
+            Route::get('/sale-returns/create/{sale}', 'create')->name('sale-returns.create');
             Route::post('/sale-returns', 'store')->name('sale-returns.store');
             Route::get('/sale-returns', 'index')->name('sale-returns.index');
             Route::get('/sale-returns/{id}', 'show')->name('sale-returns.show');
@@ -104,9 +104,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('/customers', CustomerController::class);
     Route::resource('/suppliers', SupplierController::class);
     // Product Attribute Routes (CRUD Operations)
-    Route::resource('/products/brands', BrandController::class);
-    Route::resource('/products/categories', CategoryController::class);
-    Route::resource('/products/units', UnitController::class);
+    Route::resource('/brands', BrandController::class);
+    Route::resource('/categories', CategoryController::class);
+    Route::resource('/units', UnitController::class);
     // Accounting Routes (CRUD Operations)
     Route::middleware('role:admin')->group(function () {
         Route::resource('/accounting/accounts', AccountController::class);
