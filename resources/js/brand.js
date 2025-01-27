@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
         '[data-modal-toggle="crud-modal"]'
     );
     addButton.addEventListener("click", () => {
-        document.getElementById("brand-form").action = "/products/brands/";
+        document.getElementById("brand-form").action = "/brands";
         document.getElementById("brand-form").method = "POST";
         document.getElementById("brand-id").value = "";
         document.getElementById("brand-name").value = "";
@@ -19,9 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const brandId = button.getAttribute("data-brand-id");
             const brandName = button.getAttribute("data-brand-name");
 
-            document.getElementById(
-                "brand-form"
-            ).action = `/products/brands/${brandId}`;
+            document.getElementById("brand-form").action = `/brands/${brandId}`;
             document.getElementById("brand-form").method = "POST";
             document.getElementById("brand-id").value = brandId;
             document.getElementById("brand-name").value = brandName;

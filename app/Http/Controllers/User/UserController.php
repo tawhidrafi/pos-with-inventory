@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
-    // index page
+    // dashboard page
     public function index()
     {
         $totalSales = Sale::sum('total');
@@ -28,18 +28,19 @@ class UserController extends Controller
         $totalVariants = Variant::count();
         $totalprod = $totalProducts + $totalVariants;
 
-        // Daily stats
+        // Daily
         $salesToday = Sale::whereDate('created_at', today())->sum('total');
         $purchasesToday = Purchase::whereDate('created_at', today())->sum('total');
 
         return view('user.dashboard', compact('totalSales', 'totalPurchases', 'totalSaleReturns', 'totalPurchaseReturns', 'totalprod', 'salesToday', 'purchasesToday'));
     }
+    // profile page
     public function profile()
     {
         $user = Auth::user();
+
         return view('user.profile', compact('user'));
     }
-
     // update profile details
     public function update(Request $request, User $user)
     {
@@ -49,7 +50,9 @@ class UserController extends Controller
             'phone' => 'nullable|numeric|regex:/^01[3-9]\d{8}$/|unique:users,phone,' . $user->id,
             'address' => 'nullable|string',
         ]);
+
         $user->update(array_filter($validated));
+
         return redirect()->back()->with('success', 'Profile updated successfully');
     }
     // update password
@@ -58,8 +61,11 @@ class UserController extends Controller
         $request->validate([
             'password' => 'required|string|min:8|confirmed',
         ]);
+
         $user->password = Hash::make($request->password);
+
         $user->save();
+
         return redirect()->back()->with('success', 'Password updated successfully.');
     }
     // update profile picture
@@ -68,14 +74,19 @@ class UserController extends Controller
         $request->validate([
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
         if (Auth::id() !== $user->id) {
             abort(403, 'Unauthorized action.');
         }
+
         $path = $request->file('photo')->store('images', 'public');
+
         if ($user->photo) {
             Storage::disk('public')->delete($user->photo);
         }
+
         $user->update(['photo' => $path]);
+
         return redirect()->back()->with('success', 'Profile picture updated successfully.');
     }
 }

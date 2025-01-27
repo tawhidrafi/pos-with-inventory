@@ -10,37 +10,31 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    //
-    // public function index()
-    // {
-    //     return view('user.dashboard');
-    // }
-    //  
+    //login history for all users
     public function loginHistory()
     {
         $loginHistories = LoginHistory::with('user')->get();
         return view('admin.login-history', compact('loginHistories'));
     }
-    //
+    // all registered users index
     public function users()
     {
         $users = User::with('role')->get();
         return view('admin.users',  compact('users',));
     }
-    //
+    // assign role to new user page
     public function userEdit(User $user)
     {
         $roles = Role::all();
         return view('admin.user-edit', compact('user', 'roles'));
     }
+    // assign role to new user
     public function updateRole(Request $request, $id)
     {
-        // Validate the incoming request
         $validated = $request->validate([
             'role_id' => 'required|exists:roles,id',
         ]);
 
-        // Find the user
         $user = User::find($id);
 
         if (!$user) {

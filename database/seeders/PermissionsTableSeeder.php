@@ -10,22 +10,21 @@ class PermissionsTableSeeder extends Seeder
     public function run()
     {
         $permissions = [
-            'manage-brands',
-            'manage-warehouses',
-            'manage-units',
-            'manage-product-categories',
+            'manage-product-attributes',
             'manage-products',
+            'manage-accounts',
             'manage-suppliers',
             'manage-customers',
-            'manage-expense-categories',
-            'manage-expenses',
+            'manage-accounts',
+            'view-suppliers',
+            'view-customers',
             'manage-purchase',
-            'manage-sale',
             'manage-purchase-return',
+            'manage-sale',
             'manage-sale-return',
             'manage-transfers',
-            'manage-adjustments',
-            'manage-variations',
+            'manage-warehouses',
+            'manage-adjustments'
         ];
 
         foreach ($permissions as $permission) {

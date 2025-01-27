@@ -20,6 +20,7 @@
                 <a href="{{ route('roles.index') }}" class="block py-2 px-4 hover:bg-gray-700 rounded">Roles</a>
             </div>
         </div>
+        @endif
         <!-- Contact Dropdown -->
         <div>
             <button class="flex justify-between w-full py-2 px-4 text-left hover:bg-gray-700 rounded" id="contact-dropdown" aria-expanded="false">
@@ -31,7 +32,6 @@
                 <a href="{{ route('suppliers.index') }}" class="block py-2 px-4 hover:bg-gray-700 rounded">Suppliers</a>
             </div>
         </div>
-        @endif
 
         <!-- Product Dropdown -->
         <div>

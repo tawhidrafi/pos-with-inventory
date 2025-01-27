@@ -4,8 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
         '[data-modal-toggle="crud-modal"]'
     );
     addButton.addEventListener("click", () => {
-        document.getElementById("category-form").action =
-            "/products/categories/";
+        document.getElementById("category-form").action = "/categories";
         document.getElementById("category-form").method = "POST";
         document.getElementById("category-id").value = "";
         document.getElementById("category-name").value = "";
@@ -22,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             document.getElementById(
                 "category-form"
-            ).action = `/products/categories/${categoryId}`;
+            ).action = `/categories/${categoryId}`;
             document.getElementById("category-form").method = "POST";
             document.getElementById("category-id").value = categoryId;
             document.getElementById("category-name").value = categoryName;

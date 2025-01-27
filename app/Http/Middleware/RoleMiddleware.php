@@ -10,7 +10,6 @@ class RoleMiddleware
 {
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
-        //dd($roles);
         if (!$request->user() || !$request->user()->hasAnyRole($roles)) {
             abort(403, 'Unauthorized action.');
         }

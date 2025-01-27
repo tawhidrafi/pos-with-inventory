@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
         '[data-modal-toggle="crud-modal"]'
     );
     addButton.addEventListener("click", () => {
-        document.getElementById("unit-form").action = "/products/units/";
+        document.getElementById("unit-form").action = "/units";
         document.getElementById("unit-form").method = "POST";
         document.getElementById("unit-id").value = "";
         document.getElementById("unit-name").value = "";
@@ -19,9 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const unitId = button.getAttribute("data-unit-id");
             const unitName = button.getAttribute("data-unit-name");
 
-            document.getElementById(
-                "unit-form"
-            ).action = `/products/units/${unitId}`;
+            document.getElementById("unit-form").action = `/units/${unitId}`;
             document.getElementById("unit-form").method = "POST";
             document.getElementById("unit-id").value = unitId;
             document.getElementById("unit-name").value = unitName;

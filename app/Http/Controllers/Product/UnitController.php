@@ -12,6 +12,7 @@ class UnitController extends Controller
     public function index()
     {
         $units = Unit::all();
+
         return view('products.units.index', compact('units'));
     }
     // create unit 
@@ -20,7 +21,9 @@ class UnitController extends Controller
         $validated = $request->validate([
             'name' => 'string',
         ]);
+
         Unit::create($validated);
+
         return redirect()->route('units.index')->with('success', 'Unit created successfully');
     }
     // update unit
@@ -29,13 +32,16 @@ class UnitController extends Controller
         $validated  = $request->validate([
             'name' => 'string',
         ]);
+
         $unit->update($validated);
+
         return redirect()->back()->with('success', 'Unit deleted successfully');
     }
     // delete unit
     public function destroy(Unit $unit)
     {
         $unit->delete();
+
         return redirect()->back()->with('success', 'Unit deleted successfully');
     }
 }

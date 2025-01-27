@@ -11,23 +11,23 @@ use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
-    //
+    // service class
     protected $roleService;
     public function __construct(RoleService $roleService)
     {
         $this->roleService = $roleService;
     }
-    //
+    // active roles
     public function index()
     {
         return view('roles.index', ['roles' => Role::all()]);
     }
-    //
+    // create new
     public function create()
     {
         return view('roles.create');
     }
-    //
+    // store new
     public function store(StoreRoleRequest $request)
     {
         $isStored = $this->roleService->storeRoleWithPermissions(
@@ -38,7 +38,7 @@ class RoleController extends Controller
             ? redirect()->route('roles.index')->with('success', 'Role and permissions created successfully.')
             : redirect()->route('roles.index')->with('error', 'Failed to create role and permissions.');
     }
-    //
+    // modify user roles
     public function update(Request $request, Role $role)
     {
         $request->validate([
@@ -55,15 +55,14 @@ class RoleController extends Controller
 
         return redirect()->route('roles.index')->with('success', 'Role updated successfully.');
     }
-
-    //
+    // show
     public function show(Role $role)
     {
         $permissions = Permission::all();
         $assignedPermissions = $role->permissions->pluck('name')->toArray();
         return view('roles.show', compact('role', 'permissions', 'assignedPermissions'));
     }
-    //
+    // delete role
     public function destroy(Role $role)
     {
         $role->delete();

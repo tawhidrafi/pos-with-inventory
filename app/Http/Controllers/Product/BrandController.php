@@ -13,6 +13,7 @@ class BrandController extends Controller
     public function index()
     {
         $brands = Brand::all();
+
         return view('products.brands.index', compact('brands'));
     }
     // create new brand
@@ -21,13 +22,16 @@ class BrandController extends Controller
         $validated = $request->validate([
             'name' => 'string',
         ]);
+
         Brand::create($validated);
+
         return redirect()->back()->with('success', 'Brand created successfully');
     }
     // show single brand with product
     public function show(Brand $brand)
     {
         $brand->load('products');
+
         return view('products.brands.show', compact('brand'));
     }
     // update
@@ -36,13 +40,16 @@ class BrandController extends Controller
         $validated = $request->validate([
             'name' => 'string'
         ]);
+
         $brand->update($validated);
+
         return redirect()->back()->with('success', 'Brand updated successfully');
     }
     // delete 
     public function destroy(Brand $brand)
     {
         $brand->delete();
+
         return redirect()->back()->with('success', 'Brand deleted successfully');
     }
 }

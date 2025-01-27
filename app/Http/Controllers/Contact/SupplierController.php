@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Contact\SupplierCreateRequest;
 use App\Http\Requests\Contact\SupplierUpdateRequest;
 use App\Models\Contact\Supplier;
+use Illuminate\Support\Facades\Gate;
 
 class SupplierController extends Controller
 {
@@ -18,6 +19,10 @@ class SupplierController extends Controller
     // create new supplier
     public function store(SupplierCreateRequest $request)
     {
+        if (!Gate::allows('manage-suppliers')) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $validated = $request->validated();
         Supplier::create($validated);
         return redirect()->back()->with('success', 'Supplier added successfully!');
@@ -31,11 +36,19 @@ class SupplierController extends Controller
     // edit page
     public function edit(Supplier $supplier)
     {
+        if (!Gate::allows('manage-suppliers')) {
+            abort(403, 'Unauthorized action.');
+        }
+
         return view('supplier.edit', compact('supplier'));
     }
     // update supplier
     public function update(Supplier $supplier, SupplierUpdateRequest $request)
     {
+        if (!Gate::allows('manage-suppliers')) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $validated = $request->validated();
         $supplier->update($validated);
         return redirect()->route('supplier.index')->with('success', 'Supplier updated successfully!');
@@ -43,6 +56,10 @@ class SupplierController extends Controller
     // delete supplier
     public function destroy(Supplier $supplier)
     {
+        if (!Gate::allows('manage-suppliers')) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $supplier->delete();
         return redirect()->route('suppliers.index')->with('success', 'Supplier deleted successfully!');
     }
